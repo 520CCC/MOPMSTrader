@@ -110,6 +110,9 @@
 <script>
     function closeActivity() {
                 brand88Game.closeActivity();
+         if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.closeActivityHandler) {
+            window.webkit.messageHandlers.closeActivityHandler.postMessage(null);
+        }
     }
 </script>
 </body>
