@@ -105,14 +105,24 @@
     </div>
 </div>
 
-<button class="fixed-button" onclick="closeActivity()">Got It</button>
+<button class="fixed-button" onclick="closeActivity(event)">Got It</button>
 
 <script>
-    function closeActivity() {
-                brand88Game.closeActivity();
+    function closeActivity(event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        // 调用原生方法关闭活动
+        brand88Game.closeActivity();
+
+        // 触发 WKWebView 的消息处理程序
+        if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.closeActivityHandler) {
             window.webkit.messageHandlers.closeActivityHandler.postMessage(null);
-        
+        }
     }
 </script>
+
 </body>
 </html>
